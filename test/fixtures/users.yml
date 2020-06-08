@@ -1,6 +1,13 @@
 john:
   first_name: John
   last_name: Doe
-  full_name: John DOe
+  full_name: John Doe
   email: johndoe@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
+
+jane:
+  first_name: Jane
+  last_name: Doe
+  full_name: jane Doe
+  email: janedoe@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
