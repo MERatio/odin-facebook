@@ -6,7 +6,9 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <%= render 'layouts/flashes' %>
     <%= yield %>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
