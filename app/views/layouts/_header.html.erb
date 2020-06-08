@@ -3,7 +3,7 @@
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to 'Odin Facebook', root_path %></li>
-        <li><%= link_to current_user.first_name, '#' %></li>
+        <li><%= link_to current_user.first_name, user_path(current_user) %></li>
         <li><%= link_to 'Home', root_path %></li>
         <li>
           <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
