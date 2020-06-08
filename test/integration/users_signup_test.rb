@@ -4,6 +4,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   test 'invalid signup information' do
     get new_user_registration_path
     assert_template 'devise/registrations/new'
+    assert_select 'title', full_title('Sign up')
     assert_no_difference 'User.count' do
       assert_select 'form[action=?]', user_registration_path
       post user_registration_path, params: { user: { first_name: '',
@@ -12,6 +13,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                                      password: 'foo',
                                                      password_confirmation: 'bar' } }
       assert_template 'devise/registrations/new'
+      assert_select 'title', full_title('Sign up')
       assert_select 'form[action=?]', user_registration_path
       assert_select 'div#error_explanation'
       assert_select 'div.field_with_errors'
