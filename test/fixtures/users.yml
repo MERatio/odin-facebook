@@ -18,3 +18,10 @@ sue:
   full_name: Sue Shei
   email: sueshei@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
+
+hans:
+  first_name: Hans
+  last_name: Down
+  full_name: Hans Down
+  email: hansdown@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>

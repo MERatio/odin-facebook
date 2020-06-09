@@ -6,6 +6,7 @@ class UserTest < ActiveSupport::TestCase
                      email: 'user@example.com', password: 'foobar',
                      password_confirmation: 'foobar')
     @john = users(:john)
+    @hans = users(:hans)
   end
 
   test 'should be valid' do
@@ -126,7 +127,6 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-
   test 'associated relationships should be destroyed' do
     relationship_count = @john.relationships.count +
                          @john.inverse_relationships.count
@@ -134,5 +134,43 @@ class UserTest < ActiveSupport::TestCase
     assert_difference 'Relationship.count', -relationship_count do
       @john.destroy
     end
+  end
+  
+  test 'should send and cancel friend request to a user' do
+    @john.send_friend_request_to(@hans)
+    assert @john.requestees.include?(@hans)
+    assert @hans.requestors.include?(@john)
+    @john.destroy_relationship_with(@hans)
+    assert_not @john.requestees.include?(@hans)
+    assert_not @hans.requestors.include?(@john)
+  end
+
+  test 'should accept and reject friend request of other user' do
+    @john.send_friend_request_to(@hans)
+    assert_not @john.friends_with?(@hans)
+    assert_not @hans.friends_with?(@john)
+    assert @hans.destroy_relationship_with(@john)
+    assert_not @john.requestees.include?(@hans)
+    assert_not @hans.requestors.include?(@john)
+    @john.send_friend_request_to(@hans)
+    @hans.accept_friend_request(@john)
+    assert_not @john.requestees.include?(@hans)
+    assert_not @hans.requestors.include?(@john)
+    assert @john.friends_with?(@hans)
+    assert @hans.friends_with?(@john)
+  end
+
+  test 'should unfriend a user' do
+    @john.send_friend_request_to(@hans)
+    assert_not @john.friends_with?(@hans)
+    assert_not @hans.friends_with?(@john)
+    @hans.accept_friend_request(@john)
+    assert @john.friends_with?(@hans)
+    assert @hans.friends_with?(@john)
+    @john.destroy_relationship_with(@hans)
+    assert_not @john.friends_with?(@hans)
+    assert_not @hans.friends_with?(@john)
+    assert_not @john.requestees.include?(@hans)
+    assert_not @hans.requestors.include?(@john)
   end
 end

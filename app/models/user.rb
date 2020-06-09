@@ -24,6 +24,50 @@ class User < ApplicationRecord
   validates :full_name,  presence: true
   validates :email,      length: { maximum: 255 }
 
+  # Friending methods
+
+  def send_friend_request_to(user)
+    relationships.create(requestee_id: user.id)
+  end
+
+  def sent_friend_requests
+    relationships.where(status: 'pending')
+  end
+
+  def friend_requests
+    inverse_relationships.where(status: 'pending')
+  end
+
+  def destroy_relationship_with(user)
+    relationship_id = relationships.where(requestee_id: user.id)
+          .or(inverse_relationships.where(requestor_id: user.id)).ids
+    Relationship.delete(relationship_id.first)
+  end
+
+  def requestees
+    requestees_ids = sent_friend_requests.pluck(:requestee_id)
+    User.where(id: requestees_ids)
+  end
+
+  def requestors
+    requestors_ids = friend_requests.pluck(:requestor_id)
+    User.where(id: requestors_ids)
+  end
+
+  def accept_friend_request(user)
+    friend_requests.find_by(requestor_id: user.id).update_attribute(:status, 'friends')
+  end
+
+  def friends
+    friend_ids = relationships.where(status: 'friends').pluck(:requestee_id) + 
+         inverse_relationships.where(status: 'friends').pluck(:requestor_id)
+    User.where(id: friend_ids)
+  end
+
+  def friends_with?(user)
+    friends.include?(user)
+  end
+
   private
 
     def set_full_name
