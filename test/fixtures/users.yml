@@ -11,3 +11,10 @@ jane:
   full_name: jane Doe
   email: janedoe@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
+
+sue:
+  first_name: Sue
+  last_name: Shei
+  full_name: Sue Shei
+  email: sueshei@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>

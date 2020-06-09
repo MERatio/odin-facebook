@@ -1,0 +1,4 @@
+sue_friend_requests_john:
+  requestor: sue
+  requestee: john
+  status: 'pending'

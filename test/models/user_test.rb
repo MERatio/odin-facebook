@@ -5,6 +5,7 @@ class UserTest < ActiveSupport::TestCase
     @user = User.new(first_name: 'Example', last_name: 'User', 
                      email: 'user@example.com', password: 'foobar',
                      password_confirmation: 'foobar')
+    @john = users(:john)
   end
 
   test 'should be valid' do
@@ -123,5 +124,15 @@ class UserTest < ActiveSupport::TestCase
   test 'password and password_confirmation should have a maximum length' do
     @user.password = @user.password_confirmation = 'a' * 19
     assert_not @user.valid?
+  end
+
+
+  test 'associated relationships should be destroyed' do
+    relationship_count = @john.relationships.count +
+                         @john.inverse_relationships.count
+    assert relationship_count > 0
+    assert_difference 'Relationship.count', -relationship_count do
+      @john.destroy
+    end
   end
 end

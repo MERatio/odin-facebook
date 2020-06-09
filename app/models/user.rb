@@ -5,6 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :timeoutable
 
+  # Relationship that a user initiated (in the user_id column)
+  has_many :relationships, class_name: 'Relationship',
+                           foreign_key: 'requestor_id',
+                           dependent: :destroy
+  # Relationship where the user is in the requestee_id column
+  has_many :inverse_relationships, class_name: 'Relationship',
+                                   foreign_key: 'requestee_id',
+                                   dependent: :destroy
+
   before_validation :set_full_name
 
   NAME_REGEX = /\A[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+\z/u
