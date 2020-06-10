@@ -2,3 +2,15 @@ sue_friend_requests_john:
   requestor: sue
   requestee: john
   status: 'pending'
+
+<% 50.times.each do |n| %>  
+john_friends_with_user_<%= n %>:
+  requestor: john
+  requestee: user_<%= n %>
+  status: 'friends'
+
+jane_friends_with_user_<%= n %>:
+  requestor: jane
+  requestee: user_<%= n %>
+  status: 'friends'
+<% end %>

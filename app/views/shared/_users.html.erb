@@ -1,0 +1,6 @@
+<% if users.any? %>
+  <ul>
+    <%= render users %>
+  </ul>
+  <%= will_paginate users %>
+<% end %>

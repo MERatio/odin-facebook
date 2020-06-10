@@ -25,3 +25,12 @@ hans:
   full_name: Hans Down
   email: hansdown@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
+
+<% 50.times do |n| %> 
+user_<%= n %>:
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
+  full_name: user<%= n %>
+  email: user<%= n %>@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'foobar') %>
+<% end %>

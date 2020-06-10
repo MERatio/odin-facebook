@@ -1,0 +1,9 @@
+<% provide(:title, @title) %>
+
+<section>
+  <h1><%= @user.full_name %></h1>
+</section>
+<h2><%= pluralize(@friends_count, 'friend') %></h2>
+<section>
+  <%= render 'shared/users', users: @friends %>
+</section>
