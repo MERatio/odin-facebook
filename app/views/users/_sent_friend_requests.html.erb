@@ -1,0 +1,10 @@
+<% requestees = current_user.requestees %>
+
+<p><%= pluralize(requestees.count, 'Sent friend request') %></p>
+<% if requestees.any? %>
+  <ul class="sent-friend-requests">
+    <%= render partial: 'users/user', collection: requestees, 
+        locals: { display_friending_form: true, 
+                  relationship: 'requestee' } %>
+  </ul>
+<% end %>

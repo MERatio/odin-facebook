@@ -12,6 +12,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', user_path(@user), count: 0
     assert_select 'a[href=?]', root_path,
       text: 'Home', count: 0
+    assert_select 'ul.sent-friend-requests', count: 0
+    assert_select 'ul.friend-requests', count: 0
     assert_select 'a[href=?]', destroy_user_session_path,
       text: 'Sign out', count: 0
     assert_redirected_to new_user_session_path
@@ -28,6 +30,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', user_path(@user), count: 1
     assert_select 'a[href=?]', root_path,
       text: 'Home', count: 1
+    assert_select 'ul.sent-friend-requests', count: 1
+    assert_select 'ul.friend-requests', count: 1
     assert_select 'a[href=?]', destroy_user_session_path,
       text: 'Sign out', count: 1
   end

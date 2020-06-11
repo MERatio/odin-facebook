@@ -28,6 +28,6 @@ users = User.all
 user = users.first
 other_users = users[2..51]
 other_users.each do |other_user| 
-  user.send_friend_request(other_user)
+  user.send_friend_request_to(other_user)
   other_user.accept_friend_request(user)
 end

@@ -6,6 +6,13 @@
     <%= link_to 'Edit information', edit_user_registration_path(@user) %>
   <% end %>
 </section>
-<section>
-  <%= render 'shared/friends_stats' %>
+<% unless current_user?(@user) %>
+  <%= render 'users/friend_form' %>
+<% end %>
+<section class="friends-stats">
+  <a href="<%= friends_user_path(@user) %>">
+    <strong class="friends-count">
+      <%= pluralize(@user.friends.count, 'friend') %>
+    </strong>
+  </a>
 </section>

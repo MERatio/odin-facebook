@@ -6,4 +6,5 @@ Rails.application.routes.draw do
       get :friends
     end
   end
+  resources :relationships, only: [:create, :update, :destroy]
 end

@@ -14,6 +14,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_match @user.full_name, response.body
     assert_select 'a[href=?]', edit_user_registration_path(@user), 
       text: 'Edit information', count: 1
+    assert_select "div#friend-form-#{@user.id}", count: 0
     assert_match @user.friends.count.to_s, response.body
     assert_select 'a[href=?]', friends_user_path(@user), count: 1
   end
@@ -25,6 +26,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_match @other_user.full_name, response.body
     assert_select 'a[href=?]', edit_user_registration_path(@other_user), 
       text: 'Edit information', count: 0
+    assert_select "div#friend-form-#{@other_user.id}", count: 1
     assert_match @other_user.friends.count.to_s, response.body
     assert_select 'a[href=?]', friends_user_path(@other_user), count: 1
   end

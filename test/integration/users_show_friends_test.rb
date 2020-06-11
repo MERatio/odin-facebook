@@ -15,6 +15,7 @@ class UsersShowFriendsTest < ActionDispatch::IntegrationTest
     assert_not @user.friends.empty?
     @user.friends.paginate(page: 1).each do |friend|
       assert_select 'a[href=?]', user_path(friend), text: friend.full_name
+      assert_select "div#friend-form-#{friend.id}", count: 1
     end
     assert_select 'div.pagination'
   end
@@ -27,6 +28,7 @@ class UsersShowFriendsTest < ActionDispatch::IntegrationTest
     assert_not @other_user.friends.empty?
     @other_user.friends.paginate(page: 1).each do |friend|
       assert_select 'a[href=?]', user_path(friend), text: friend.full_name
+      assert_select "div#friend-form-#{friend.id}", count: 0
     end
     assert_select 'div.pagination'
   end

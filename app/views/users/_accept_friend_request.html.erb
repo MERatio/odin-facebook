@@ -1,0 +1,4 @@
+<%= form_for(current_user.friend_requests.find_by(requestor_id: other_user.id),
+             method: :patch) do |f| %>
+  <%= f.submit 'Accept friend request' %>
+<% end %>

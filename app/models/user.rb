@@ -68,6 +68,24 @@ class User < ApplicationRecord
     friends.include?(user)
   end
 
+  def determine_relationship_with(user)
+    if requestees.include?(user) 
+      'requestee'
+    elsif requestors.include?(user) 
+      'requestor'
+    elsif friends_with?(user) 
+      'friends'
+    else 
+      'stranger'
+    end
+  end
+
+  def find_relationship_with(user)
+    relationship_id = relationships.where(requestee_id: user.id)
+      .or(inverse_relationships.where(requestor_id: user.id)).ids
+    Relationship.find(relationship_id.first)
+  end
+
   private
 
     def set_full_name

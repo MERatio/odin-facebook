@@ -3,7 +3,14 @@
 <section>
   <h1><%= @user.full_name %></h1>
 </section>
-<h2><%= pluralize(@friends_count, 'friend') %></h2>
+<h2 class="friends-count"><%= pluralize(@friends_count, 'friend') %></h2>
 <section>
-  <%= render 'shared/users', users: @friends %>
+  <% if @friends.any? %>
+    <ul>
+      <%= render partial: 'users/user', collection: @friends, 
+          locals: { display_friending_form: current_user?(@user),
+                    relationship: 'friends' } %>
+    </ul>
+    <%= will_paginate @friends %>
+  <% end %>
 </section>

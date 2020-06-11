@@ -1,0 +1,21 @@
+<% other_user ||= @user %>
+<% relationship ||= current_user.determine_relationship_with(other_user) %>
+
+<% unless current_user?(other_user) %>
+  <div id="friend-form-<%= other_user.id %>">
+    <% case relationship %>
+      <% when 'requestee' %>
+        <%= render 'users/destroy_relationship', other_user: other_user,
+                    submit_text: 'Cancel friend request' %>
+      <% when 'requestor' %>
+        <%= render 'users/accept_friend_request', other_user: other_user %>
+        <%= render 'users/destroy_relationship', other_user: other_user, 
+                    submit_text: 'Reject friend request' %>
+      <% when 'friends' %>
+        <%= render 'users/destroy_relationship', other_user: other_user,
+                    submit_text: 'Unfriend' %>
+      <% when 'stranger' %>
+        <%= render 'users/send_friend_request', other_user: other_user %>
+    <% end %>
+  </div>
+<% end %>

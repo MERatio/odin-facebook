@@ -173,4 +173,20 @@ class UserTest < ActiveSupport::TestCase
     assert_not @john.requestees.include?(@hans)
     assert_not @hans.requestors.include?(@john)
   end
+
+  test 'determine the relationship with other user' do
+    assert_equal @john.determine_relationship_with(@hans), 'stranger'
+    assert_equal @hans.determine_relationship_with(@john), 'stranger'
+    @john.send_friend_request_to(@hans)
+    assert_equal @john.determine_relationship_with(@hans), 'requestee'
+    assert_equal @hans.determine_relationship_with(@john), 'requestor'
+    @hans.accept_friend_request(@john)
+    assert_equal @john.determine_relationship_with(@hans), 'friends'
+    assert_equal @hans.determine_relationship_with(@john), 'friends'
+  end
+
+  test 'finds the relationship with other user' do
+    relationship = @john.send_friend_request_to(@hans)
+    assert_equal @john.find_relationship_with(@hans), relationship
+  end
 end

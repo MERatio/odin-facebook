@@ -1,3 +1,7 @@
 <li>
   <%= link_to user.full_name, user %>
+  <% if display_friending_form %>
+    <%= render 'users/friend_form', other_user: user,
+      relationship: relationship %>
+  <% end %>
 </li>

@@ -1,0 +1,5 @@
+<%= form_for(current_user.find_relationship_with(other_user), 
+             method: :delete) do |f| %>
+  <div><%= hidden_field_tag :other_user_id, other_user.id %></div>
+  <%= f.submit submit_text %>
+<% end %>
