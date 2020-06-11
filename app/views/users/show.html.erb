@@ -16,3 +16,12 @@
     </strong>
   </a>
 </section>
+<section>
+  <h2><%= pluralize(@authored_posts.count, 'post') %></h2>
+  <% if @authored_posts.any? %>
+    <ul class="posts">
+      <%= render @authored_posts %>
+    </ul>
+    <%= will_paginate @authored_posts %>
+  <% end %>
+</section>

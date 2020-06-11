@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @authored_posts = @user.posts.paginate(page: params[:page], per_page: 10)
   end
 
   def friends

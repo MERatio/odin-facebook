@@ -1,0 +1,7 @@
+<li id="post-<%= post.id %>">
+  <div class="author">
+    <%= link_to post.author.full_name, post.author %>
+  </div>
+  <p class="timestamp"><%= format_date(post.created_at) %></p>
+  <p class="content"><%= post.content %></p>
+</li>

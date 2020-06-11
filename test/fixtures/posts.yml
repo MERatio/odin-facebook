@@ -17,3 +17,15 @@ most_recent:
   content: 'Most recent post'
   created_at: <%= Time.zone.now %>
   author: john
+
+<% 50.times do |n| %>
+john_post_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 100) %>
+  created_at: <%= 14.days.ago %>
+  author: john
+
+jane_post_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 100) %>
+  created_at: <%= 14.days.ago %>
+  author: jane
+<% end %>

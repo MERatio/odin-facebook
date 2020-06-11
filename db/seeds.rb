@@ -31,3 +31,9 @@ other_users.each do |other_user|
   user.send_friend_request_to(other_user)
   other_user.accept_friend_request(user)
 end
+
+# Posts
+50.times do 
+  content = Faker::Lorem.sentence(word_count: 100)
+  users.take(5).each { |user| user.posts.create!(content: content) }
+end
