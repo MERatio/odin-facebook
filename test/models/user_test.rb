@@ -189,4 +189,12 @@ class UserTest < ActiveSupport::TestCase
     relationship = @john.send_friend_request_to(@hans)
     assert_equal @john.find_relationship_with(@hans), relationship
   end
+
+  test 'associated posts should be destroyed' do
+    @user.save
+    @user.posts.create!(content: 'Lorem ipsum')
+    assert_difference 'Post.count', -@user.posts.count do
+      @user.destroy
+    end
+  end
 end

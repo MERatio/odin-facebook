@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :inverse_relationships, class_name: 'Relationship',
                                    foreign_key: 'requestee_id',
                                    dependent: :destroy
+  has_many :posts, foreign_key: 'author_id', dependent: :destroy
 
   before_validation :set_full_name
 

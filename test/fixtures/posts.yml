@@ -1,0 +1,19 @@
+cats:
+  content: 'Cats are cute too!'
+  created_at: <%= 2.minutes.ago %>
+  author: john
+
+seals:
+  content: 'Seals are chonky'
+  created_at: <%= 2.hours.ago %>
+  author: john
+
+dogs:
+  content: 'Dogs are cute'
+  created_at: <%= 2.years.ago %>
+  author: john
+
+most_recent:
+  content: 'Most recent post'
+  created_at: <%= Time.zone.now %>
+  author: john
