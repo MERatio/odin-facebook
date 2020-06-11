@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def error_flashes(obj)
+    obj.errors.full_messages.each do |message|
+      flash[:danger] = message
+    end
+  end
+
   protected
 
     def configure_permitted_parameters

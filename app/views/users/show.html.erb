@@ -16,6 +16,11 @@
     </strong>
   </a>
 </section>
+<% if current_user?(@user) %>
+  <section class="post-form">
+    <%= render 'shared/post_form' %>
+  </section>
+<% end %>
 <section>
   <h2><%= pluralize(@authored_posts.count, 'post') %></h2>
   <% if @authored_posts.any? %>

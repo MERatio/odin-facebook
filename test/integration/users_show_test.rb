@@ -17,6 +17,8 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_select "div#friend-form-#{@user.id}", count: 0
     assert_match @user.friends.count.to_s, response.body
     assert_select 'a[href=?]', friends_user_path(@user), count: 1
+    # Post form
+    assert_select 'section.post-form', count: 1
     # Posts
     @user.posts.paginate(page: 1, per_page: 10).each do |post|
       assert_match post.author.full_name,        response.body
@@ -36,6 +38,8 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_select "div#friend-form-#{@other_user.id}", count: 1
     assert_match @other_user.friends.count.to_s, response.body
     assert_select 'a[href=?]', friends_user_path(@other_user), count: 1
+    # Post form
+    assert_select 'section.post-form', count: 0
     # Posts
     @other_user.posts.paginate(page: 1, per_page: 10).each do |post|
       assert_match post.author.full_name,        response.body

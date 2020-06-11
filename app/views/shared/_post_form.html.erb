@@ -1,0 +1,9 @@
+<%= form_for(@post) do |f| %>
+  <div class="field">
+    <%= f.text_area :content, placeholder: 'Create a post' %>
+  </div>
+
+  <div class="action">
+    <%= f.submit 'Post' %>
+  </div>
+<% end %>
