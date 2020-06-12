@@ -88,6 +88,20 @@ class User < ApplicationRecord
     Relationship.find(relationship_id.first)
   end
 
+  # Like and Unlike methods
+
+  def likes(post)
+    reactions.create(post_id: post.id)
+  end
+
+  def likes?(post)
+    reactions.exists?(post_id: post.id)
+  end
+
+  def unlikes(post)
+    reactions.find_by(post_id: post.id).destroy
+  end
+
   private
 
     def set_full_name

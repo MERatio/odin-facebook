@@ -207,4 +207,24 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'should like a post' do
+    assert_difference '@jane_post.reactions.count', 1 do
+      @john.likes(@jane_post)
+    end
+  end
+
+  test 'should check if the user liked a post' do
+    assert_not @john.likes?(@jane_post)
+    @john.likes(@jane_post)
+    assert @john.likes(@jane_post)
+  end
+
+  test 'should unlike a post' do
+    @john.likes(@jane_post)
+    assert @john.likes?(@jane_post)
+    assert_difference ['Reaction.count', '@jane_post.reactions.count'], -1 do
+      @john.unlikes(@jane_post)
+    end
+  end
 end
