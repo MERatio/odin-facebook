@@ -227,4 +227,13 @@ class UserTest < ActiveSupport::TestCase
       @john.unlikes(@jane_post)
     end
   end
+
+  test 'associated comments should be destroyed' do
+    @user.save
+    @user.comments.create!(post_id: @jane_post.id, content: 'Lorem ipsum')
+    assert @user.comments.count == 1
+    assert_difference ['Comment.count', '@jane_post.comments.count'], -1 do
+      @user.destroy
+    end
+  end
 end

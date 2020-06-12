@@ -30,11 +30,20 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'associated reactions should be destroyed' do
-    jane_post = posts(:jane_post_1)
-    @john.reactions.create!(post_id: jane_post.id)
-    assert jane_post.reactions.count > 0
-    assert_difference 'Reaction.count', -jane_post.reactions.count do
-      jane_post.destroy
+    @post.save
+    @john.reactions.create!(post_id: @post.id)
+    assert @post.reactions.count == 1
+    assert_difference 'Reaction.count', -1 do
+      @post.destroy
+    end
+  end
+
+  test 'associated comments should be destroyed' do
+    @post.save
+    @john.comments.create!(post_id: @post.id, content: 'Lorem ipsum')
+    assert @post.comments.count == 1
+    assert_difference 'Comment.count', -1 do
+      @post.destroy
     end
   end
 end

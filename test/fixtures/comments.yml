@@ -1,0 +1,23 @@
+john_comment_to_jane_post_1:
+  user: john
+  post: jane_post_1
+  content:  <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 2.minutes.ago %>
+
+john_comment_to_jane_post_2:
+  user: john
+  post: jane_post_1
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 2.hours.ago %>
+
+john_comment_to_jane_post_3:
+  user: john
+  post: jane_post_1
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 2.years.ago %>
+
+most_recent:
+  user: john
+  post: jane_post_1
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= Time.zone.now %>

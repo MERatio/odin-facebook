@@ -15,6 +15,7 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :posts, foreign_key: 'author_id', dependent: :destroy
   has_many :reactions, dependent: :destroy
+  has_many :comments,  dependent: :destroy
 
   before_validation :set_full_name
 
