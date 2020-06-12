@@ -8,8 +8,16 @@
     <p id="likes-count-<%= post.id %>">
       <%= link_to pluralize(post.reactions.count, 'like'), post_reactions_path(post) %>
     </p>
+    <p id="comments-count-<%= post.id %>">
+      <%= link_to pluralize(post.comments.count, 'comment'), post_path(post) %>
+    </p>
   </div>
   <div class="actions">
     <%= render 'shared/like_or_unlike', post: post %>
   </div>
+  <% if post.comments.any? %>
+    <ul class="comments">
+      <%= render post.comments.take(3) %>
+    </ul>
+  <% end %>
 </li>

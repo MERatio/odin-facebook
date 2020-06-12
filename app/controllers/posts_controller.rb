@@ -6,6 +6,11 @@ class PostsController < ApplicationController
     @post = current_user.posts.build
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @post_comments = @post.comments.paginate(page: params[:page])
+  end
+
   def create
     @post = current_user.posts.build(post_params)
     @post.save ? flash[:success] = 'Post created' : error_flashes(@post)

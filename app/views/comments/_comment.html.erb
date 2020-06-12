@@ -1,0 +1,7 @@
+<li id="comment-<%= comment.id %>">
+  <div class="commenter">
+    <%= link_to comment.user.full_name, comment.user %>
+  </div>
+  <p class="comment_content"><%= comment.content %></p>
+  <p class="timestamp"><%= format_date(comment.created_at) %></p>
+</li>

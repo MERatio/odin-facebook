@@ -21,3 +21,17 @@ most_recent:
   post: jane_post_1
   content: <%= Faker::Lorem.sentence(word_count: 5) %>
   created_at: <%= Time.zone.now %>
+
+<% 50.times do |n| %>
+sue_comment_to_john_post_<%= n %>:
+  user: sue
+  post: john_post_1
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 1.week.ago %>
+
+sue_comment_to_jane_post_<%= n %>:
+  user: sue
+  post: jane_post_1
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 1.week.ago %>
+<% end %>

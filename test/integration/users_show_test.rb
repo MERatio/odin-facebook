@@ -19,11 +19,23 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', friends_user_path(@user), count: 1
     # Post form
     assert_select 'section.post-form', count: 1
+    # Post count
+    assert_match @user.posts.count.to_s, response.body
     # Posts
     @user.posts.paginate(page: 1, per_page: 10).each do |post|
       assert_match post.author.full_name,        response.body
       assert_match format_date(post.created_at), response.body
-      assert_match post.content,                 response.body
+      assert_match CGI.escapeHTML(post.content), response.body
+      assert_match post.reactions.count.to_s,    response.body
+      assert_match post.comments.count.to_s,     response.body
+      # Post actions
+      assert_select "div#like-or-unlike-#{post.id}"
+      # Post comments
+      post.comments.take(3).each do |comment|
+        assert_match comment.user.full_name,          response.body
+        assert_match CGI.escapeHTML(comment.content), response.body
+        assert_match format_date(comment.created_at), response.body
+      end
     end
     assert_select 'div.pagination'
   end
@@ -40,11 +52,23 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', friends_user_path(@other_user), count: 1
     # Post form
     assert_select 'section.post-form', count: 0
+    # Post count
+    assert_match @other_user.posts.count.to_s, response.body
     # Posts
     @other_user.posts.paginate(page: 1, per_page: 10).each do |post|
       assert_match post.author.full_name,        response.body
       assert_match format_date(post.created_at), response.body
-      assert_match post.content,                 response.body
+      assert_match CGI.escapeHTML(post.content), response.body
+      assert_match post.reactions.count.to_s,    response.body
+      assert_match post.comments.count.to_s,     response.body
+      # Post actions
+      assert_select "div#like-or-unlike-#{post.id}"
+      # Post comments
+      post.comments.take(3).each do |comment|
+        assert_match comment.user.full_name,          response.body
+        assert_match CGI.escapeHTML(comment.content), response.body
+        assert_match format_date(comment.created_at), response.body
+      end
     end
     assert_select 'div.pagination'
   end

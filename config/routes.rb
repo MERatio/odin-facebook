@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: [:create, :update, :destroy]
-  resources :posts,         only: [:create] do
+  resources :posts,         only: [:create, :show] do
     resources :reactions,   only: [:index, :create, :destroy]
   end
 end

@@ -37,3 +37,12 @@ end
   content = Faker::Lorem.sentence(word_count: 100)
   users.take(5).each { |user| user.posts.create!(content: content) }
 end
+
+# Reactions and Comments
+Post.take(5).each do |post|
+  users.each do |user|
+    user.likes(post)
+    content = Faker::Lorem.sentence(word_count: 10)
+    post.comments.create(user_id: user.id, content: content)
+  end
+end
