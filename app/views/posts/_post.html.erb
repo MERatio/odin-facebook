@@ -4,4 +4,12 @@
   </div>
   <p class="timestamp"><%= format_date(post.created_at) %></p>
   <p class="content"><%= post.content %></p>
+  <div class="post-stats">
+    <p id="likes-count-<%= post.id %>">
+      <%= link_to pluralize(post.reactions.count, 'like'), post_reactions_path(post) %>
+    </p>
+  </div>
+  <div class="actions">
+    <%= render 'shared/like_or_unlike', post: post %>
+  </div>
 </li>

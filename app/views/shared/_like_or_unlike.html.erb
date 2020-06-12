@@ -1,0 +1,7 @@
+<div id="like-or-unlike-<%= post.id %>">
+  <% if current_user.likes?(post) %>
+    <%= render 'shared/unlike', post: post %>
+  <% else %>
+    <%= render 'shared/like', post: post %>
+  <% end %>
+</div>

@@ -1,0 +1,11 @@
+<section>
+  <h2 class="reaction-count">
+    <%= pluralize(@post_reactions.count, 'like') %>
+  </h2>
+  <% if @post_reactions.any? %>
+    <ul class="reactions">
+      <%= render @post_reactions %>
+    </ul>
+    <%= will_paginate @post_reactions %>
+  <% end %>
+</section>
