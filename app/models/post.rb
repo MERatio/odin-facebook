@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :author, class_name: 'User'
+  has_many   :reactions, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
 

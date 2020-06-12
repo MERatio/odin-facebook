@@ -28,4 +28,13 @@ class PostTest < ActiveSupport::TestCase
   test 'order should be most recent first' do
     assert_equal posts(:most_recent), Post.first
   end
+
+  test 'associated reactions should be destroyed' do
+    jane_post = posts(:jane_post_1)
+    @john.reactions.create!(post_id: jane_post.id)
+    assert jane_post.reactions.count > 0
+    assert_difference 'Reaction.count', -jane_post.reactions.count do
+      jane_post.destroy
+    end
+  end
 end

@@ -7,6 +7,7 @@ class UserTest < ActiveSupport::TestCase
                      password_confirmation: 'foobar')
     @john = users(:john)
     @hans = users(:hans)
+    @jane_post = posts(:jane_post_1)
   end
 
   test 'should be valid' do
@@ -193,7 +194,16 @@ class UserTest < ActiveSupport::TestCase
   test 'associated posts should be destroyed' do
     @user.save
     @user.posts.create!(content: 'Lorem ipsum')
-    assert_difference 'Post.count', -@user.posts.count do
+    assert_difference 'Post.count', -1 do
+      @user.destroy
+    end
+  end
+
+  test 'associated reactions should be destroyed' do
+    @user.save
+    @user.reactions.create!(post_id: @jane_post.id)
+    assert @user.reactions.count == 1
+    assert_difference ['Reaction.count', '@jane_post.reactions.count'], -1 do
       @user.destroy
     end
   end

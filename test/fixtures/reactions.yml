@@ -1,0 +1,11 @@
+<% 5.times do |n| %>
+user_<%= n %>_reaction_to_cats:
+  user: user_<%= n %>
+  post: cats
+  created_at: <%= (1 + n).hours.ago %>
+<% end %>
+
+most_recent:
+  user: jane
+  post: cats
+  created_at: <%= Time.zone.now %>

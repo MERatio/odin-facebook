@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200611035143) do
+ActiveRecord::Schema.define(version: 20200612015346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20200611035143) do
     t.datetime "updated_at", null: false
     t.index ["author_id", "created_at"], name: "index_posts_on_author_id_and_created_at"
     t.index ["author_id"], name: "index_posts_on_author_id"
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_reactions_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_reactions_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -51,6 +61,8 @@ ActiveRecord::Schema.define(version: 20200611035143) do
   end
 
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "reactions", "posts"
+  add_foreign_key "reactions", "users"
   add_foreign_key "relationships", "users", column: "requestee_id"
   add_foreign_key "relationships", "users", column: "requestor_id"
 end
