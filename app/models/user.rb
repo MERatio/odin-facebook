@@ -27,6 +27,14 @@ class User < ApplicationRecord
   validates :full_name,  presence: true
   validates :email,      length: { maximum: 255 }
 
+  scope :familiars_for, ->(user) do
+    not_strangers_ids = user.relationships.map(&:requestee_id)
+    not_strangers_ids << user.inverse_relationships.map(&:requestor_id) << user.id
+    where(id: not_strangers_ids.flatten)
+  end
+
+  scope :strangers_for, ->(user) { where.not(id: familiars_for(user).ids) }
+
   # Friending methods
 
   def send_friend_request_to(user)

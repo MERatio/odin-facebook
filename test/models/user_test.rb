@@ -256,4 +256,20 @@ class UserTest < ActiveSupport::TestCase
       assert_not @john.news_feed.include?(post)
     end
   end
+
+  test 'finds all familiar users' do
+    familiars = User.familiars_for(@john)
+    strangers = User.strangers_for(@john)
+    strangers.each do |stranger|
+      assert_not familiars.include?(stranger)
+    end
+  end
+
+  test 'finds all strangers' do
+    strangers = User.strangers_for(@john)
+    familiars = User.familiars_for(@john)
+    familiars.each do |familiar|
+      assert_not strangers.include?(familiar)
+    end
+  end
 end
