@@ -17,6 +17,7 @@ class PostShowTest < ActionDispatch::IntegrationTest
     assert_match @post.comments.count.to_s,         response.body
     # Post actions
     assert_select "div#like-or-unlike-#{@post.id}"
+    assert_select 'form[action=?]',                 post_comments_path(@post)
     # Post comments
     @post.comments.paginate(page: 1).each do |comment|
       assert_match comment.user.full_name,          response.body
