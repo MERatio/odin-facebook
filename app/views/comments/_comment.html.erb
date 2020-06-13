@@ -1,7 +1,10 @@
 <% if !comment.id.nil? && !comment.user.nil? && !comment.created_at.nil? %>
   <li id="comment-<%= comment.id %>">
     <div class="commenter">
-      <%= link_to comment.user.full_name, comment.user %>
+      <%= link_to comment.user do %>
+        <%= gravatar_for(comment.user, size: 50) %>
+        <%= comment.user.first_name %>
+      <% end %>
     </div>
     <p class="comment_content"><%= comment.content %></p>
     <p class="timestamp"><%= format_date(comment.created_at) %></p>

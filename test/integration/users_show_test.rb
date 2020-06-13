@@ -12,6 +12,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@user.first_name)
     assert_match @user.full_name, response.body
+    assert_select 'img[alt=?]', @user.full_name
     assert_select 'a[href=?]', edit_user_registration_path(@user), 
       text: 'Edit information', count: 1
     assert_select "div#friend-form-#{@user.id}", count: 0
@@ -46,6 +47,7 @@ class UsersShowTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_select 'title', full_title(@other_user.first_name)
     assert_match @other_user.full_name, response.body
+    assert_select 'img[alt=?]', @other_user.full_name
     assert_select 'a[href=?]', edit_user_registration_path(@other_user), 
       text: 'Edit information', count: 0
     assert_select "div#friend-form-#{@other_user.id}", count: 1

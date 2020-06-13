@@ -11,9 +11,11 @@ class UsersShowFriendsTest < ActionDispatch::IntegrationTest
     get friends_user_path(@user)
     assert_template 'users/show_friends'
     assert_match @user.full_name, response.body
+    assert_select 'img[alt=?]', @user.full_name
     assert_match @user.friends.count.to_s, response.body
     assert_not @user.friends.empty?
     @user.friends.paginate(page: 1).each do |friend|
+      assert_select 'img[alt=?]', @user.full_name
       assert_select 'a[href=?]', user_path(friend), text: friend.full_name
       assert_select "div#friend-form-#{friend.id}", count: 1
     end
@@ -24,9 +26,11 @@ class UsersShowFriendsTest < ActionDispatch::IntegrationTest
     get friends_user_path(@other_user)
     assert_template 'users/show_friends'
     assert_match @other_user.full_name, response.body
+    assert_select 'img[alt=?]', @other_user.full_name
     assert_match @other_user.friends.count.to_s, response.body
     assert_not @other_user.friends.empty?
     @other_user.friends.paginate(page: 1).each do |friend|
+      assert_select 'img[alt=?]', friend.full_name
       assert_select 'a[href=?]', user_path(friend), text: friend.full_name
       assert_select "div#friend-form-#{friend.id}", count: 0
     end

@@ -12,6 +12,7 @@ class PostsReactionsShowTest < ActionDispatch::IntegrationTest
     assert_template 'reactions/index'
     assert_match @post.reactions.count.to_s, response.body
     @post.reactions.paginate(page: 1).each do |reaction|
+      assert_select 'img[alt=?]',           reaction.user.full_name
       assert_match reaction.user.full_name, response.body
     end
     assert_select 'div.pagination'

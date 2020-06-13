@@ -2,6 +2,7 @@
 
 <section>
   <h1><%= @user.full_name %></h1>
+  <%= gravatar_for(@user) %>
 </section>
 <h2 class="friends-count"><%= pluralize(@friends_count, 'friend') %></h2>
 <section>

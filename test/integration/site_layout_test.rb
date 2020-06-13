@@ -27,6 +27,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'posts/index'
     assert_select 'a[href=?]', root_path,
       text: 'Odin Facebook', count: 1
+    assert_select 'img[alt=?]', @user.full_name
     assert_select 'a[href=?]', user_path(@user), 
       text: @user.first_name, count: 1
     assert_select 'a[href=?]', root_path,

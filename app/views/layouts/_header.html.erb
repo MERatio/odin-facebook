@@ -3,7 +3,12 @@
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to 'Odin Facebook', root_path %></li>
-        <li><%= link_to current_user.first_name, user_path(current_user) %></li>
+        <li>
+          <%= link_to current_user do %>
+            <%= gravatar_for(current_user, size: 50) %>
+            <%= current_user.first_name %>
+          <% end %>
+        </li>
         <li><%= link_to 'Home', root_path %></li>
         <%= render 'users/sent_friend_requests' %>
         <%= render 'users/friend_requests' %>

@@ -1,5 +1,6 @@
 <section id="post-<%= @post.id %>">
   <div class="author">
+    <%= gravatar_for(@post.author, size: 80) %>
     <%= link_to @post.author.full_name, @post.author %>
   </div>
   <p class="timestamp"><%= format_date(@post.created_at) %></p>
