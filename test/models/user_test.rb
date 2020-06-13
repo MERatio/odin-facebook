@@ -236,4 +236,24 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'news feed should have the right post' do
+    ruby = users(:ruby)
+    barry = users(:barry)
+    # Posts from a friend
+    assert ruby.posts.count > 0
+    ruby.posts.each do |post|
+      assert @john.news_feed.include?(post)
+    end
+    # Posts from self
+    assert @john.posts.count > 0
+    @john.posts.each do |post|
+      assert @john.news_feed.include?(post)
+    end
+    # Posts from stranger
+    assert barry.posts.count > 0
+    barry.posts.each do |post|
+      assert_not @john.news_feed.include?(post)
+    end
+  end
 end

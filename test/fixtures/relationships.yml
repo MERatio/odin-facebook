@@ -8,6 +8,11 @@ john_friend_requests_samuel:
   requestee: samuel
   status: 'pending'
 
+john_friends_with_ruby:
+  requestor: john
+  requestee: ruby
+  status: 'friends'
+
 <% 50.times.each do |n| %>  
 john_friends_with_user_<%= n %>:
   requestor: john

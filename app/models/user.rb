@@ -103,6 +103,14 @@ class User < ApplicationRecord
     reactions.find_by(post_id: post.id).destroy
   end
 
+  # News feed
+
+  def news_feed
+    friends_and_self_ids = friends.ids.push(id)
+    Post.where(author_id: friends_and_self_ids)
+  end
+
+
   private
 
     def set_full_name

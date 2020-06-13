@@ -28,4 +28,14 @@ jane_post_<%= n %>:
   content: <%= Faker::Lorem.sentence(word_count: 100) %>
   created_at: <%= 14.days.ago %>
   author: jane
+
+ruby_post_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 100) %>
+  created_at: <%= 14.days.ago %>
+  author: ruby
+
+barry_post_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 100) %>
+  created_at: <%= 14.days.ago %>
+  author: barry
 <% end %>
