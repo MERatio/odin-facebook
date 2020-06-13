@@ -1,0 +1,6 @@
+<% if @news_feed_items.any? %>
+  <ul class="news-feed-items">
+    <%= render @news_feed_items %>
+  </ul>
+  <%= will_paginate @news_feed_items %>
+<% end %>

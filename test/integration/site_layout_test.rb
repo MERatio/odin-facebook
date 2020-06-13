@@ -27,7 +27,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_template 'posts/index'
     assert_select 'a[href=?]', root_path,
       text: 'Odin Facebook', count: 1
-    assert_select 'a[href=?]', user_path(@user), count: 1
+    assert_select 'a[href=?]', user_path(@user), 
+      text: @user.first_name, count: 1
     assert_select 'a[href=?]', root_path,
       text: 'Home', count: 1
     assert_select 'ul.sent-friend-requests', count: 1

@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   def index
     @post = current_user.posts.build
+    @news_feed_items = current_user.news_feed
+                                   .paginate(page: params[:page], per_page: 10)
   end
 
   def show
