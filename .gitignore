@@ -19,3 +19,6 @@
 .byebug_history
 
 data-model.txt
+
+# Ignore application configuration
+/config/application.yml
