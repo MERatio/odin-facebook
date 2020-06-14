@@ -1,0 +1,10 @@
+<h1>Connect with other users</h1>
+<section>
+  <% if @strangers.any? %>
+    <ul class="strangers">
+    <%= render @strangers, display_friending_form: true,
+                           relationship: 'stranger' %>
+    </ul>
+    <%= will_paginate @strangers %>
+  <% end %>
+</section>

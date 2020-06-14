@@ -3,6 +3,7 @@
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to 'Odin Facebook', root_path %></li>
+        <li><%= link_to 'Find friends', users_path %></li>
         <li>
           <%= link_to current_user do %>
             <%= gravatar_for(current_user, size: 50) %>

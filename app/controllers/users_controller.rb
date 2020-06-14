@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @strangers = User.strangers_for(current_user).paginate(page: params[:page])
+  end
+
   def show
     @user = User.find(params[:id])
     @post = current_user.posts.build
