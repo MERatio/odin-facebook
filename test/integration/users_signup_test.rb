@@ -29,6 +29,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                                      password: 'foobar',
                                                      password_confirmation: 'foobar' } }
     end
+    assert_equal 1, ActionMailer::Base.deliveries.size
     assert_not flash.empty?
     assert_redirected_to root_path
   end

@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :comments,  dependent: :destroy
 
   before_validation :set_full_name
+  after_create      :send_welcome_email
 
   NAME_REGEX = /\A[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+\z/u
   validates :first_name, presence: true, length: { maximum: 30 },
@@ -137,5 +138,9 @@ class User < ApplicationRecord
         # uncomment the line below to skip the confirmation emails.
         # user.skip_confirmation!
       end
+    end
+
+    def send_welcome_email
+      UserMailer.with(user: self).welcome_email.deliver_now
     end
 end

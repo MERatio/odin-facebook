@@ -1,3 +1,5 @@
+ActionMailer::Base.perform_deliveries = false
+
 # Users
 User.create!(first_name: 'John',
              last_name: 'Doe',
